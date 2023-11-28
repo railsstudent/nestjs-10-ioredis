@@ -13,3 +13,7 @@ export async function setCacheValue(redisCache: Redis, key: string, value: unkno
     await redisCache.set(key, stringifiedValue);
   }
 }
+
+export function keys(redisCache: Redis, pattern = '*'): Promise<string[]> {
+  return redisCache.keys(pattern);
+}
