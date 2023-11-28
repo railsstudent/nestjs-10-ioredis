@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
-import { AnimalsService } from '../services/animals.service';
-import { CreateAnimalDto } from '../dtos/create-animal.dto';
-import { DeleteAnimalDto } from '../dtos/delete-animal.dto';
+import { CreateAnimalDto } from '~animal/dtos/create-animal.dto';
+import { DeleteAnimalDto } from '~animal/dtos/delete-animal.dto';
+import { AnimalsService } from '~animal/services/animals.service';
 
 @Controller('animals')
 export class AnimalsController {
