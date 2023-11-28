@@ -1,18 +1,19 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { AnimalsService } from '../services/animals.service';
-import { AnimalColorDto } from '../dtos/animal-color.dto';
+import { CreateAnimalDto } from '../dtos/create-animal.dto';
+import { DeleteAnimalDto } from '../dtos/delete-animal.dto';
 
 @Controller('animals')
 export class AnimalsController {
   constructor(private readonly animalService: AnimalsService) {}
 
   @Post()
-  async save(@Body() dto: AnimalColorDto): Promise<void> {
+  async save(@Body() dto: CreateAnimalDto): Promise<void> {
     await this.animalService.cacheValue(dto);
   }
 
   @Get()
-  async retrieve(@Query('name') name: string): Promise<AnimalColorDto | undefined> {
+  async retrieve(@Query('name') name: string): Promise<CreateAnimalDto | undefined> {
     const color = await this.animalService.getValue(name);
     if (color !== 'No key') {
       return {
@@ -22,5 +23,10 @@ export class AnimalsController {
     }
 
     return undefined;
+  }
+
+  @Delete()
+  async kill(@Body() dto: DeleteAnimalDto): Promise<void> {
+    await this.animalService.delValue(dto);
   }
 }

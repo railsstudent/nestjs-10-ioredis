@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class AnimalColorDto {
+export class CreateAnimalDto {
   @IsNotEmpty()
   name: string;
 
