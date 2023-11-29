@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRedis } from '@songkeys/nestjs-redis';
 import { Redis } from 'ioredis';
 import { env } from '~configs/env.config';
-import { getCacheValue, setCacheValue } from '~core/helpers/cache-value.helper';
+import { deleteCacheValue, getCacheValue, setCacheValue } from '~core/helpers/cache-value.helper';
 import { CreateAnimalDto } from '../dtos/create-animal.dto';
 import { DeleteAnimalDto } from '../dtos/delete-animal.dto';
 
@@ -20,6 +20,6 @@ export class AnimalsService {
   }
 
   async delValue({ name }: DeleteAnimalDto): Promise<void> {
-    await this.cache.del(name);
+    await deleteCacheValue(this.cache, name);
   }
 }
