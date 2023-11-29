@@ -17,3 +17,12 @@ export async function setCacheValue(redisCache: Redis, key: string, value: unkno
 export function keys(redisCache: Redis, pattern = '*'): Promise<string[]> {
   return redisCache.keys(pattern);
 }
+
+export async function deleteCacheValue(redisCache: Redis, key: string): Promise<void> {
+  await redisCache.del(key);
+}
+
+export async function deleteCacheKeysByPattern(redisCache: Redis, pattern = '*'): Promise<void> {
+  const matchedKeys = await keys(redisCache, pattern);
+  await Promise.allSettled(matchedKeys.map((k) => redisCache.del(k)));
+}
